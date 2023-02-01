@@ -1,46 +1,59 @@
-// **** BIBLIOTECAS **** //
+// **** LIBRARIES **** //
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-// Classe necessaria MonoBehavior
+// Required class MonoBehavior
 public class PlayerController : MonoBehaviour
 {
-    // **** VARIAVEIS **** //
+    // **** VARIABLES **** //
     Rigidbody2D rb;
 
     [SerializeField] Vector2 vel;
     [SerializeField] Vector2 force;
+
     public Transform floorCollider;
+    public Transform skin;
 
 
-    // Funcao Start - inicio *"Sempre que houver valores de fisica, criar variaveis no Start"
+    // FunctionStart - start *"Whenever there are physics values, create variables in Start"
     void Start()
-    {  
-        rb      = GetComponent<Rigidbody2D>();
-        force   = new Vector2(0, 120);
+    {
+        rb = GetComponent<Rigidbody2D>();
+        force = new Vector2(0, 140);
     }
 
-    // Funcao Loop - sempre rodando e atualizando 
+    // FunctionLoop - always running and updating
     void Update()
     {
-        // **** MOVIMENTO **** //
+        // **** MOVEMENT **** //
         // Jump
         if (Input.GetButtonDown("Jump") && floorCollider.GetComponent<FloorCollider>().canJump == true)
         {
+            skin.GetComponent<Animator>().Play("PlayerJump", -1); // Searches among all existing layers, starts at 0 so -1 will never exist
             rb.velocity = Vector2.zero;
             floorCollider.GetComponent<FloorCollider>().canJump = false;
             rb.AddForce(force);
         }
-        vel = new Vector2(Input.GetAxisRaw("Horizontal"), rb.velocity.y);   // Horizontal x1, y-1
+        vel = new Vector2(Input.GetAxisRaw("Horizontal"), rb.velocity.y);   // Horizontal = x1, y-1
+
+        // Run skin change
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            skin.GetComponent<Animator>().SetBool("PlayerRun", true);
+        }
+        else
+        {
+            skin.GetComponent<Animator>().SetBool("PlayerRun", false);
+        }
 
     }
 
-    // Funcao FixedUpdate - Nivela FPS para todos sempre atualizara a cada 0.2s
+    // FunctionFixedUpdate - Levels FPS for everyone always updates every 0.2s
     private void FixedUpdate()
     {
-        // Velocidade player nivelada
+        // Leveled player speed
         rb.velocity = vel;
     }
 }
