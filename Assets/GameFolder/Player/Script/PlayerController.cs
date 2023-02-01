@@ -10,10 +10,9 @@ public class PlayerController : MonoBehaviour
     // **** VARIAVEIS **** //
     Rigidbody2D rb;
 
-    [SerializeField] Vector2 force;
-
-    public Transform floorCollider;
     [SerializeField] Vector2 vel;
+    [SerializeField] Vector2 force;
+    public Transform floorCollider;
 
 
     // Funcao Start - inicio *"Sempre que houver valores de fisica, criar variaveis no Start"
