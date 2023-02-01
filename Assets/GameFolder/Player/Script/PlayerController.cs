@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     // FunctionFixedUpdate - Levels FPS for everyone always updates every 0.2s
     private void FixedUpdate()
     {
-        // Leveled player speed
+        // Leveled player speeed
         rb.velocity = vel;
     }
 }
