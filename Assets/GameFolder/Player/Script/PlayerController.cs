@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         // Run skin change
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
-            skin.localStage = new Vector3(Input.GetAxisRaw("Horizontal"), 1, 1); // Skin mirror
+            skin.localScale = new Vector3(Input.GetAxisRaw("Horizontal"), 1, 1); // Skin mirror
             skin.GetComponent<Animator>().SetBool("PlayerRun", true);
         }
         else
