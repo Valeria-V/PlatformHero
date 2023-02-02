@@ -13,8 +13,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector2 vel;
     [SerializeField] Vector2 force;
 
-    public Transform floorCollider;
-    public Transform skin;
+    public  Transform floorCollider;
+    public  Transform skin;
+
+    public  int comboNumber;
+    public  float comboTime;
 
 
     // FunctionStart - start *"Whenever there are physics values, create variables in Start"
@@ -27,11 +30,31 @@ public class PlayerController : MonoBehaviour
     // FunctionLoop - always running and updating
     void Update()
     {
+        // **** ATTACK **** //
+        comboTime = comboTime + Time.deltaTime; // comboTime=0 + goes up from 0 to.....
+        if (Input.GetButtonDown("Fire1") && comboTime > 0.5f)
+        {
+            comboNumber++;
+            if(comboNumber > 2)
+            {
+                comboNumber = 1;
+            }
+
+            comboTime = 0;   
+            skin.GetComponent<Animator>().Play("PlayerAttack" + comboNumber, -1); // Play PlayerAttack1 - Searches among all existing layers, starts at 0 so -1 will never exist
+        }
+
+        if (comboTime >= 1) // comboTime break
+        {
+            comboNumber = 0;
+        }
+
+
         // **** MOVEMENT **** //
         // Jump
         if (Input.GetButtonDown("Jump") && floorCollider.GetComponent<FloorCollider>().canJump == true)
         {
-            skin.GetComponent<Animator>().Play("PlayerJump", -1); // Searches among all existing layers, starts at 0 so -1 will never exist
+            skin.GetComponent<Animator>().Play("PlayerJump", -1); // Play PlayerJump - Searches among all existing layers, starts at 0 so -1 will never exist
             rb.velocity = Vector2.zero;
             floorCollider.GetComponent<FloorCollider>().canJump = false;
             rb.AddForce(force);
