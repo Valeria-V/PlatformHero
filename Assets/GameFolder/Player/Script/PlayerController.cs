@@ -36,24 +36,14 @@ public class PlayerController : MonoBehaviour
             floorCollider.GetComponent<FloorCollider>().canJump = false;
             rb.AddForce(force);
         }
-        vel = new Vector2(Input.GetAxisRaw("Horizontal"), rb.velocity.y);   // Horizontal = x1, y-1
-
-        // Run skin change
-        if (Input.GetAxisRaw("Horizontal") != 0)
-        {
-            skin.GetComponent<Animator>().SetBool("PlayerRun", true);
-        }
-        else
-        {
-            skin.GetComponent<Animator>().SetBool("PlayerRun", false);
-        }
+        vel = new Vector2(Input.GetAxisRaw("Horizontal"), rb.velocity.y);   // Horizontal x1, y-1
 
     }
 
     // FunctionFixedUpdate - Levels FPS for everyone always updates every 0.2s
     private void FixedUpdate()
     {
-        // Leveled player speeed
+        // Velocidade player nivelada
         rb.velocity = vel;
     }
 }
