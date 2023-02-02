@@ -211,6 +211,7 @@ MonoBehaviour:
   vel: {x: 0, y: 0}
   force: {x: 0, y: 0}
   floorCollider: {fileID: 1170882389}
+  skin: {fileID: 1590524411}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
